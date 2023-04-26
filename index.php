@@ -18,7 +18,7 @@
             case "comptes":  
                 require_once ("modele/class.pdoAuthentification.inc.php");
                 $Comptes = ComptesDao::getLesComptes() ;
-
+                
                 include "vue/comptes.php";
                 break;
 
