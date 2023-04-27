@@ -1,7 +1,7 @@
 
 <?php
     
-    echo "<h2>List des comptes</h2><table class='table'><th>Client</th><th>Nom de compte</th><th>IBAN</th><th>Solde</th><th></th>";
+    echo "<h2>Liste des comptes</h2><table class='table'><th>Client</th><th>Nom de compte</th><th>IBAN</th><th>Solde</th><th></th>";
     
     foreach($Comptes as $cl){
         
