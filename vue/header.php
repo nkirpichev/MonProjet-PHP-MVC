@@ -12,7 +12,8 @@
 
 </head>
 <body>
-<div class="container px-4 my-5 w-60" >
+<p> </p>
+<div class="container px-4 " >
     
 <p class="fig "><img src="https://moneymakerfactory.ru/Pics/loads/multy_img-2-20215610.jpg" width="50%" alt=""></p>
 <header class="d-flex justify-content-center py-3">
@@ -25,6 +26,7 @@
  
 
   <?php
-   $action = $_REQUEST["action"];  
-   echo "<script>ChangeColor('".$action."')</script>" ?>
+    $action = $_REQUEST["action"];  
+    echo "<script>ChangeColor('".$action."')</script>" 
+   ?>
 
