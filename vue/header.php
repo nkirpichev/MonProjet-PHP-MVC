@@ -13,7 +13,7 @@
 </head>
 <body>
 <p> </p>
-<div class="container px-4 w-400" >
+<div class="container px-4" >
     
 <p class="fig "><img src="https://moneymakerfactory.ru/Pics/loads/multy_img-2-20215610.jpg" width="50%" alt=""></p>
 <header class="d-flex justify-content-center py-3">
