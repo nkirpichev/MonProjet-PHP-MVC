@@ -65,7 +65,7 @@ class ClientsDao {
 		try {
    
 		$clients = array();
-		$req = "Select * from clients";
+		$req = "Select * from clients order by nom";
 
 		$monPdoAuth = PdoAuth::getPdoAuth();
 
@@ -94,7 +94,10 @@ class ComptesDao {
 		try {
    
 		$comptes = array();
-		$req = "Select c.*, cl.nom as clNom, cl.prenom as clpreNom  from Comptes C inner join Clients cl on  C.idClient = Cl.idClient order by cl.nom";
+		$req = "Select c.*, cl.nom as clNom, cl.prenom as clpreNom  
+			from Comptes C 
+			inner join Clients cl on  C.idClient = Cl.idClient 
+			order by cl.nom";
 
 		$monPdoAuth = PdoAuth::getPdoAuth();
 
@@ -111,13 +114,39 @@ class ComptesDao {
     		echo 'Échec lors de la connexion : ' . $e->getMessage();
 		}
     }
- 
+	
+	public static function getUnCompte($idClient){ 
+
+		try {
+   
+		$comptes = array();
+		$req = "Select c.*, cl.nom as clNom, cl.prenom as clpreNom  
+			from Comptes C 
+			inner join Clients cl on  C.idClient = Cl.idClient 
+			where C.idClient = ".$idClient."
+			order by cl.nom";
+
+		$monPdoAuth = PdoAuth::getPdoAuth();
+
+		$rs = $monPdoAuth::getMonPdo()->prepare($req) ;
+		$rs->setFetchMode(PDO::FETCH_OBJ);
+		$rs->execute() ;
+
+		$comptes = $rs->fetchAll();
+		return $comptes;
+
+		} 
+		catch (PDOException $e) {
+   
+    		echo 'Échec lors de la connexion : ' . $e->getMessage();
+		}
+    }
 	public static function creerCompte($unCompte)  {
    	
 		 try {
  			$req="insert into comptes(idClient,nom,solde,numCompte) values('".htmlspecialchars($unCompte->getidClient())."','".htmlspecialchars($unCompte->getNom())."','".htmlspecialchars($unCompte->getSolde())."','".htmlspecialchars($unCompte->getnumCompte())."')"; 
 	  
-			//echo $req ;
+			echo $req ;
 			$monPdoAuth = PdoAuth::getPdoAuth();
 			$rs = $monPdoAuth::getMonPdo()->prepare($req) ;
 			$rs->execute() ;
@@ -127,7 +156,22 @@ class ComptesDao {
 			echo 'Échec lors de la connexion : ' . $e->getMessage();
 		}
 	}	
-
+	
+	public static function deleteCompte($idCompte)  {
+   	
+		try {
+			$req="delete from comptes where numCompte =" .htmlspecialchars($idCompte).""; 
+	 
+		   //echo $req ;
+		   $monPdoAuth = PdoAuth::getPdoAuth();
+		   $rs = $monPdoAuth::getMonPdo()->prepare($req) ;
+		   $rs->execute() ;
+	   } 
+	   catch (PDOException $e) {
+	  
+		   echo 'Échec lors de la connexion : ' . $e->getMessage();
+	   }
+   }
 }
     
     

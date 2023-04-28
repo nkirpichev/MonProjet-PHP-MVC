@@ -17,8 +17,14 @@
 
             case "comptes":  
                 require_once ("modele/class.pdoAuthentification.inc.php");
-                $Comptes = ComptesDao::getLesComptes() ;
-                
+                if(isset($_REQUEST["idclient"])) {
+                    $Comptes = ComptesDao::getUnCompte($_REQUEST["idclient"]) ;
+                    $_SESSION["idClient"] = $_REQUEST["idclient"];
+                    }
+                else{
+                    unset($_SESSION["idClient"]);
+                    $Comptes = ComptesDao::getLesComptes() ;
+                }
                 include "vue/comptes.php";
                 break;
 
@@ -35,7 +41,17 @@
                     $_SESSION["idClient"] = $idClient;
                     include "vue/creercompte.php";
                     break;
+            case "deletecompte":  
 
+                    $idCompte = $_REQUEST["idcompte"]; 
+                    require_once ("modele/class.pdoAuthentification.inc.php");
+                    ComptesDao::deleteCompte($idCompte);
+                    if(isset($_SESSION["idClient"])) $Comptes = ComptesDao::getUnCompte($_SESSION["idClient"]) ;
+                        else $Comptes = ComptesDao::getLesComptes() ;
+
+                    include "vue/comptes.php";
+                    break;
+    
             case "ajouter":         
                     require_once ("modele/class.pdoAuthentification.inc.php");
                     require_once ("modele/Compte.php");
